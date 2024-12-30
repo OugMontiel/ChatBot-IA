@@ -1,23 +1,24 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 from model import load_model
 
 app = Flask(__name__)
 qa_pipeline = load_model()
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html')
+    answer = None
+    question = None
+    context = None
 
-@app.route('/ask', methods=['POST'])
-def ask_question():
-    question = request.form.get('question')
-    context = request.form.get('context')
+    if request.method == 'POST':
+        question = request.form.get('question')
+        context = request.form.get('context')
 
-    if not question or not context:
-        return jsonify({"error": "Falta pregunta o contexto"}), 400
+        if question and context:
+            result = qa_pipeline(question=question, context=context)
+            answer = result['answer']
 
-    result = qa_pipeline(question=question, context=context)
-    return jsonify(result)
+    return render_template('index.html', question=question, context=context, answer=answer)
 
 if __name__ == '__main__':
     app.run(debug=True)
