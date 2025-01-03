@@ -64,16 +64,77 @@ ChatBot-IA/
 ### **Capturas de pantalla:**  
 
 #### Página principal:  
-![Página Principal](Capturas/P1%20Sin%20Contenido.png)  
+![Página Principal](Capturas/P2%20Sin%20Contenido.png)  
 
 #### Ejemplo de interacción:  
-![Pregunta](Capturas/P1%20con%20Contenido.png)  
-![Respuesta](Capturas/P1%20Respuesta.png)  
+Modelo 1 
+![Pregunta](Capturas/P2%20con%20Contenido.png)  
+![Respuesta](Capturas/P2%20Respuesta.png)  
+
+Modelo 2
+![Pregunta](Capturas/P2%20con%20Contenido%202%20Modelo.png)  
+![Respuesta](Capturas/P2%20Respuesta%202%20modelo.png)  
 
 ----
 
-# Proyecto 2: **Implementación de Múltiples Modelos con Iteración**
-Crea una clase que facilite el uso de múltiples modelos LLM mediante la API de Hugging Face. La clase debe permitir la iteración entre diferentes modelos, brindando flexibilidad para comparar y seleccionar respuestas según el modelo utilizado.
+## **Proyecto 2: Implementación de Múltiples Modelos con Iteración**
+
+Este proyecto amplía la funcionalidad del primero al introducir la capacidad de utilizar múltiples modelos LLM mediante la API de Hugging Face. Se ha creado una clase gestionadora que permite cambiar fácilmente entre diferentes modelos, ofreciendo flexibilidad para comparar respuestas y seleccionar el modelo más adecuado para cada situación.
+
+### **Características principales:**
+- **Gestión de Múltiples Modelos:** Permite cargar y alternar entre varios modelos de lenguaje.
+- **Comparación de Respuestas:** Facilita la evaluación de respuestas generadas por diferentes modelos para determinar cuál es más apropiado en diversos contextos.
+- **Interfaz Intuitiva:** La interfaz tipo chat se ha mantenido, con la adición de un selector para elegir el modelo a utilizar.
+
+### **Requisitos:**
+Para ejecutar este proyecto, asegúrate de tener instalado:
+- Python 3.7 o superior.
+- Las bibliotecas especificadas en el archivo `requirements.txt`:  
+  - `transformers`
+  - `torch`
+  - `flask`
+
+### **Instalación:**
+
+Sigue el mismo proceso de instalación que el Proyecto 1. Clona este repositorio y asegúrate de haber instalado todas las dependencias indicadas.
+
+### **Uso:**
+
+1. Inicia la aplicación ejecutando:
+   ```bash
+   python main.py
+   ```
+
+2. Abre tu navegador y accede a:
+   ```
+   http://127.0.0.1:5000
+   ```
+
+3. Escribe una pregunta en el campo de texto, selecciona el modelo deseado del menú desplegable, y presiona "Enviar" para obtener la respuesta.
+
+### **Estructura del proyecto:**
+
+```
+ChatBot-IA/
+├── main.py            # Archivo principal para ejecutar la aplicación.
+├── config.py          # Configuración y constantes del proyecto.
+├── model.py           # Gestión individual de modelos.
+├── model_manager.py   # Clase para gestionar múltiples modelos.
+├── app.py             # Lógica principal de la aplicación.
+├── templates/
+│   ├── index.html     # Interfaz HTML de la aplicación.
+│   └── styles.css     # Estilos CSS para la interfaz.
+└── requirements.txt   # Lista de dependencias necesarias.
+```
+
+### **Capturas de pantalla:**
+
+#### Selector de modelos:
+![Selector de Modelos](Capturas/P2%20Selector%20Modelos.png)
+
+#### Ejemplo de interacción con diferentes modelos:
+![Interacción Múltiples Modelos](Capturas/P2%20Interaccion%20Modelos.png)
+
 
 ----
 
