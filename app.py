@@ -1,24 +1,37 @@
 from flask import Flask, request, render_template
-from model import load_model
+from model_manager import ModelManager
 
 app = Flask(__name__)
-qa_pipeline = load_model()
+
+# Lista de modelos a utilizar
+model_names = [
+    "distilbert-base-uncased-distilled-squad",
+    "bert-large-uncased-whole-word-masking-finetuned-squad",
+]
+
+# Inicializa el gestor de modelos
+model_manager = ModelManager(model_names)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     answer = None
     question = None
     context = None
+    selected_model = model_manager.current_model_name
 
     if request.method == 'POST':
         question = request.form.get('question')
         context = request.form.get('context')
+        selected_model = request.form.get('model')
+
+        if selected_model:
+            model_manager.set_current_model(selected_model)
 
         if question and context:
-            result = qa_pipeline(question=question, context=context)
+            result = model_manager.answer_question(question, context)
             answer = result['answer']
 
-    return render_template('index.html', question=question, context=context, answer=answer)
+    return render_template('index.html', question=question, context=context, answer=answer, models=model_names, selected_model=selected_model)
 
 if __name__ == '__main__':
     app.run(debug=True)
