@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 from model_manager import ModelManager
+import os
 
 app = Flask(__name__)
 
@@ -11,6 +12,10 @@ model_names = [
 
 # Inicializa el gestor de modelos
 model_manager = ModelManager(model_names)
+
+@app.route('/templates/<path:filename>')
+def custom_static(filename):
+    return send_from_directory(os.path.join(app.root_path, 'templates'), filename)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
